@@ -21,12 +21,19 @@
         <div class="container-fluid">
             <div class="navbar-header">
                   <a class="navbar-brand" href="#">Dealership Review</a>
-                  <a class="navbar-brand" href="about.html">About Us</a>
+                  <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
             </div>
         </div>
     </nav>
 
     <!--Add a dealer table here -->
+    <footer>
+        <div class="card">
+            <div class="card-body mx-auto">
+              <a href="{% url 'djangoapp:contact' %}" class="btn btn-primary">Contact Us</a>
+            </div>
+          </div>
+    </footer>
 
     </body>
 
