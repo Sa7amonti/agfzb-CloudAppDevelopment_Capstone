@@ -11,86 +11,106 @@
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
-                      <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership Review</a>
+                      <a class="navbar-brand" href="#">Dealership Review</a>
                       <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
                 </div>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Username" name="username" >
+                                <input type="password" class="form-control" placeholder="Password" name="psw" >
+                                <button class="btn btn-primary" type="submit">Login</button>
+                                <a class="btn btn-link" href="#">Sign Up</a>
+                            </div>
+                        </form>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </nav>
-<section class="mb-4">
+        <section class="mb-4">
 
-    <!--Section heading-->
-    <h1 class="h1-responsive font-weight-bold text-center my-4">Contact us</h1>
-    <!--Section description-->
-    <p class="text-center w-responsive mx-auto mb-5">Please do not hesitate to contact us directly.</p>
+            <!--Section heading-->
+            <h1 class="h1-responsive font-weight-bold text-center my-4">Contact us</h1>
+            <!--Section description-->
+            <p class="text-center w-responsive mx-auto mb-5">Please do not hesitate to contact us directly.</p>
 
-    <div class="row">
+            <div class="row">
 
-        <!--Grid column-->
-        <div class="col-md-9 mb-md-0 mb-5 mx-auto" style="width: 200px;">
-            <form id="contact-form" name="contact-form" action="#" method="POST">
+                <!--Grid column-->
+                <div class="col-md-9 mb-md-0 mb-5 mx-auto" style="width: 200px;">
+                    <form id="contact-form" name="contact-form" action="#" method="POST">
 
-                <!--Grid row-->
-                <div class="row">
+                        <!--Grid row-->
+                        <div class="row">
 
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Your name</label>
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="name" name="name" class="form-control">
+                                    <label for="name" class="">Your name</label>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="email" name="email" class="form-control">
+                                    <label for="email" class="">Your email</label>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
                         </div>
-                    </div>
-                    <!--Grid column-->
+                        <!--Grid row-->
 
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
-                            <label for="email" class="">Your email</label>
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="subject" name="subject" class="form-control">
+                                    <label for="subject" class="">Subject</label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!--Grid column-->
+                        <!--Grid row-->
 
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-12">
+
+                                <div class="md-form">
+                                    <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                                    <label for="message">Your message</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Grid row-->
+
+                    </form>
+
+                    <div class="text-center text-md-left">
+                        <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+                    </div>
+                    <div class="status"></div>
                 </div>
-                <!--Grid row-->
+                <!--Grid column-->
 
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            <input type="text" id="subject" name="subject" class="form-control">
-                            <label for="subject" class="">Subject</label>
-                        </div>
-                    </div>
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-12">
-
-                        <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
-                            <label for="message">Your message</label>
-                        </div>
-
-                    </div>
-                </div>
-                <!--Grid row-->
-
-            </form>
-
-            <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
             </div>
-            <div class="status"></div>
-        </div>
-        <!--Grid column-->
 
-    </div>
-
-</section>
-<!--Section: Contact v.2-->
+        </section>
+        <!--Section: Contact v.2-->
     </body>
 </html>
