@@ -37,14 +37,14 @@ app.get('/dealerships/get', (req, res) => {
     if (state) {
         selector.state = state;
     }
-    
+
     if (id) {
         selector.id = parseInt(id); // Filter by "id" with a value of 1
     }
 
     const queryOptions = {
         selector,
-        limit: 10, // Limit the number of documents returned to 10
+        limit: 20, // Limit the number of documents returned to 10
     };
 
     db.find(queryOptions, (err, body) => {

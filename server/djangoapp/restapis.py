@@ -3,6 +3,10 @@ import json
 # import related models here
 from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
+import time
 
 
 # Create a `get_request` to make HTTP GET requests
@@ -27,10 +31,20 @@ def get_request(url, **kwargs):
 # e.g., response = requests.post(url, params=kwargs, json=payload)
 
 
+def post_request(url, payload, **kwargs):
+    print("POST to {} ".format(url))
+    response = requests.post(url, params=kwargs, json=payload)
+    status_code = response.status_codeprint(
+        "With status {}".format(status_code))
+    json_data = json.loads(response.text)
+    return json_data
+
 # Create a get_dealers_from_cf method to get dealers from a cloud function
 # def get_dealers_from_cf(url, **kwargs):
 # - Call get_request() with specified arguments
 # - Parse JSON results into a CarDealer object list
+
+
 def get_dealers_from_cf(url, **kwargs):
     results = []
     # Call get_request with a URL parameter
@@ -77,10 +91,25 @@ def get_dealer_reviews_from_cf(url, **kwargs):
     else:
         json_result = get_request(url)
     if json_result:
-        reviews = json_result["data"]["docs"]
-        for review in reviews:
-            review_obj = DealerReview(dealership=review["dealership"], name=review["name"], purchase=review["purchase"], review=review["review"], purchase_date=review["purchase_date"],
-                                      car_make=review["car_make"], car_model=review["car_model"], car_year=review["car_year"], sentiment=review["sentiment"], id=review["id"])
+        print(json_result)
+        reviews = json_result
+        for dealer_review in reviews:
+            review_obj = DealerReview(dealership=dealer_review["dealership"],
+                                      name=dealer_review["name"],
+                                      purchase=dealer_review["purchase"],
+                                      review=dealer_review["review"])
+            if "id" in dealer_review:
+                review_obj.id = dealer_review["id"] if dealer_review["id"] else "-"
+            if "purchase_date" in dealer_review:
+                review_obj.purchase_date = dealer_review["purchase_date"] if dealer_review["purchase_date"] else "-"
+            if "car_make" in dealer_review:
+                review_obj.car_make = dealer_review["car_make"] if dealer_review["car_make"] else "-"
+            if "car_model" in dealer_review:
+                review_obj.car_model = dealer_review["car_model"] if dealer_review["car_model"] else "-"
+            if "car_year" in dealer_review:
+                review_obj.car_year = dealer_review["car_year"] if dealer_review["car_year"] else "-"
+            sentiment = analyze_review_sentiments(review_obj.review)
+            review_obj.sentiment = sentiment if sentiment else "-"
         results.append[review_obj]
     return results
 
@@ -89,6 +118,23 @@ def get_dealer_reviews_from_cf(url, **kwargs):
 # def analyze_review_sentiments(text):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
+def analyze_review_sentiments(text):
+    url = 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/cfcb245e-a7f3-4875-bcbb-82de55aa6455'
+
+    api_key = 'HJIQPjEmaVnMH0LDw8xZsWCuhjFZeczyGUiJv1cOx5Bt'
+
+    authenticator = IAMAuthenticator(api_key)
+    natural_language_understanding = NaturalLanguageUnderstandingV1(
+        version='2022-04-07',
+        authenticator=authenticator
+    )
+    natural_language_understanding.set_service_url(url)
+    response = natural_language_understanding.analyze(text=text, features=Features(
+        sentiment=SentimentOptions(targets=[text]))).get_result()
+    label = json.dumps(response, indent=2)
+    label = response['sentiment']['document']['label']
+    return label
+
 
 # def get_dealers_by_state_from_cf(url, state):
 #     results = []

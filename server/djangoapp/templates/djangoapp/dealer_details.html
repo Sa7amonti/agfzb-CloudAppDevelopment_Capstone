@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Dealership Review</title>
@@ -7,13 +8,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
-    <body>
+<body>
 
     <!--Add a nav bar here -->
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Dealership Review</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership Review</a>
                 <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
@@ -65,6 +66,6 @@
     </div>
     {% endfor%}
 
-    </body>
+</body>
 
 </html>

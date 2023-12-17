@@ -92,4 +92,4 @@ class DealerReview:
         self.id = id
 
     def __str__(self):
-        return "Dealer name: " + self.full_name + ". Dealer review: " + self.review
+        return "Review: " + self.review + ", Sentiment: " + self.sentiment + ", Dealership: " + self.dealership + ", Purchase: " + self.purchase
