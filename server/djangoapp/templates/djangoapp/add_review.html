@@ -10,10 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 </head>
-    <body>
+    <body style="margin: 2%;">
     <!--Add review form here -->
     <h1>Review dealer {{dealer.full_name}}</h1>
-    <form action="{% url 'djangoapp:add_review' dealer.id %}" method="post">
+    <form action="{% url 'djangoapp:add_review' dealer.id %}" method="post" style="margin: 5%;">
         {% csrf_token %}
         <div class="form-group">
             <label>Enter the review content here: </label>
@@ -39,5 +39,11 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
     </body>
+    <script type="text/javascript">
+        $('.date-own').datepicker({
+            format: 'mm/dd/yyyy'
+        });
+    </script>
 </html>
