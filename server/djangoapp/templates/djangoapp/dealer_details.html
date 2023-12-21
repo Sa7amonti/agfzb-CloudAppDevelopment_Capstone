@@ -40,8 +40,6 @@
             </ul>
         </div>
     </nav>
-    <!-- Add reviews as cards -->
-    <!-- Add reviews as cards -->
     <h3>Reviews for {{dealer.full_name}}</h3>
     <div class="card-columns">
         {% for review in reviews %}
@@ -61,96 +59,7 @@
                 <p class="card-text">{{ review.review }}</p>
             </div>
         </div>
-        <!-- <div class="card">
-            {% if review.sentiment == "positive"%}
-            <img class="card-img-left" src="{{MEDIA_URL}}emoji/positive.png" />
-            {% elif review.sentiment == "neutral" %}
-            <img class="card-img-left" src="{{MEDIA_URL}}emoji/neutral.png" />
-            {% elif review.sentiment == "negative" %}
-            <img class="card-img-left" src="{{MEDIA_URL}}emoji/negative.png" />
-            {%else %}
-            <img class="card-img-left" src="{{MEDIA_URL}}emoji/neutral.png" />
-            {% endif %}
-        </div>
-
-        <div class="card-body">
-            <!-- need to add car make, car model, car year as card title -->
-        <!-- <h5 class="card-title">{{review.car_make}}, {{review.car_model}} </h5>
-            <h5 class="card-title">{{review.car_year}}</h5> -->
-        <!-- need to add review -->
-        <!-- <p class="card-text">{{ review.review }}</p>
-        </div>
-    </div> -->
         {% endfor%}
-
-
-        <!-- <div class="card mb-3" style="margin: 10px;">
-                    <div class="card-body">
-                        {% if review.sentiment == "positive"%}
-                        <img class="card-img-left" src="{{MEDIA_URL}}emoji/positive.png" />
-                        {% elif review.sentiment == "neutral" %}
-                        <img class="card-img-left" src="{{MEDIA_URL}}emoji/neutral.png" />
-                        {% elif review.sentiment == "negative" %}
-                        <img class="card-img-left" src="{{MEDIA_URL}}emoji/negative.png" />
-                        {%else %}
-                        <img class="card-img-left" src="{{MEDIA_URL}}emoji/neutral.png" />
-                        {% endif %}
-                        <h5 class="card-title">NISSAN, Micra</h5>
-                        <h5 class="card-title">2020</h5>
-                        <p class="card-text">Awesome Service!</p>
-                    </div>
-                </div>
-            
-            
-                <div class="card mb-3" style="margin: 10px;">
-                    <div class="card-body">
-                        <img class="card-img-left" src="{{MEDIA_URL}}emoji/neutral.png" alt="Card image cap" style="width: 20%">
-                        <h5 class="card-title">NISSAN, Micra</h5>
-                        <h5 class="card-title">2022</h5>
-                        <p class="card-text">good service but had to wait long</p>
-                    </div>
-                </div>
-            
-            
-                <div class="card mb-3" style="margin: 10px;">
-                    <div class="card-body">
-                        <img class="card-img-top" src="{{MEDIA_URL}}emoji/positive.png" alt="Card image cap" style="width: 20%">
-                        <h5 class="card-title">NISSAN, Leaf</h5>
-                        <h5 class="card-title">2019</h5>
-                        <p class="card-text">great staff</p>
-                    </div>
-                </div>
-            
-            
-                <div class="card mb-3" style="margin: 10px;">
-                    <div class="card-body">
-                        <img class="card-img-top" src="{{MEDIA_URL}}emoji/negative.png" alt="Card image cap" style="width: 20%">
-                        <h5 class="card-title">NISSAN, Leaf</h5>
-                        <h5 class="card-title">2023</h5>
-                        <p class="card-text">Issue not sorted</p>
-                    </div>
-                </div>
-            
-            
-                <div class="card mb-3" style="margin: 10px;">
-                    <div class="card-body">
-                        <img class="card-img-top" src="{{MEDIA_URL}}emoji/positive.png" alt="Card image cap" style="width: 20%">
-                        <h5 class="card-title">NISSAN, Leaf</h5>
-                        <h5 class="card-title">2021</h5>
-                        <p class="card-text">satisfied with my purchase</p>
-                    </div>
-                </div>
-            
-            
-                <div class="card mb-3" style="margin: 10px;">
-                    <div class="card-body">
-                        <img class="card-img-top" src="{{MEDIA_URL}}emoji/positive.png" alt="Card image cap" style="width: 20%">
-                        <h5 class="card-title">NISSAN, Micra</h5>
-                        <h5 class="card-title">2022</h5>
-                        <p class="card-text">Great help</p>
-                    </div>
-                </div> -->
-
 
 </body>
 

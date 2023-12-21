@@ -17,22 +17,14 @@ import uuid
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-
-# Create your views here.
-
-
-# Create an `about` view to render a static about page
 def about(request):
     if request.method == "GET":
         return render(request, 'djangoapp/about.html')
 
 
-# Create a `contact` view to return a static contact page
 def contact(request):
     if request.method == "GET":
         return render(request, 'djangoapp/contact.html')
-
-# Create a `login_request` view to handle sign in request
 
 
 def login_request(request):
@@ -50,14 +42,11 @@ def login_request(request):
     return redirect("djangoapp:index")
 
 
-# Create a `logout_request` view to handle sign out request
 def logout_request(request):
     logger.info(f"Logout the user: {request.user.username}")
     logout(request)
     messages.success(request, "Logout successful!")
     return redirect("djangoapp:index")
-
-# Create a `registration_request` view to handle sign up request
 
 
 def registration_request(request):
@@ -89,8 +78,6 @@ def registration_request(request):
             messages.warning(request, "The user already exists.")
             return redirect("djangoapp:register")
 
-# Update the `get_dealerships` view to render the index page with a list of dealerships
-
 
 def get_dealerships(request):
     if request.method == "GET":
@@ -101,6 +88,7 @@ def get_dealerships(request):
         # context["dealerships"] = dealerships
         context = {"dealership_list": dealerships}
         return render(request, 'djangoapp/index.html', context)
+
 
 def get_dealer_details(request, dealer_id):
     if request.method == "GET":
@@ -134,7 +122,6 @@ def add_review(request, dealer_id):
         return render(request, 'djangoapp/add_review.html', context)
 
     elif request.method == 'POST':
-        # print('post')
         if request.user.is_authenticated:
             username = request.user.username
             print(request.POST)
@@ -160,17 +147,13 @@ def add_review(request, dealer_id):
             review = {
                 "id": dealer_id,
                 "time": datetime.utcnow().isoformat(),
-                # Assuming you want to use the authenticated user's name
                 "name": request.user.username,
                 "dealership": dealer_id,
-                # Extract the review from the POST request
                 "review": request.POST["content"],
-                "purchase": True,  # Extract purchase info from POST
-                # Extract purchase date from POST
+                "purchase": True, 
                 "purchase_date": request.POST["purchasedate"],
-                "car_make": car.make.name,  # Extract car make from POST
-                "car_model": car.name,  # Extract car model from POST
-                # Extract car year from POST
+                "car_make": car.make.name,
+                "car_model": car.name,
                 "car_year": int(car.year.strftime("%Y")),
             }
             review = json.dumps(review, default=str)
