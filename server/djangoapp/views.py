@@ -81,7 +81,10 @@ def registration_request(request):
 
 def get_dealerships(request):
     if request.method == "GET":
-        url = "http://127.0.0.1:3000/dealerships/get"
+        # local lab
+        # url = "http://127.0.0.1:3000/dealerships/get"
+        # online lab
+        url = "https://igabi-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         dealerships = get_dealers_from_cf(url)
 
         context = {}
@@ -93,12 +96,18 @@ def get_dealerships(request):
 def get_dealer_details(request, dealer_id):
     if request.method == "GET":
         context = {}
-        dealer_url = "http://127.0.0.1:3000/dealerships/get"
+        # local lab
+        # dealer_url = "http://127.0.0.1:3000/dealerships/get"
+        # online lab
+        dealer_url = "https://igabi-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         dealer = get_dealer_by_id_from_cf(dealer_url, dealer_id)
         context['dealer'] = dealer
         # context = {"dealer": dealer}
 
+        # local lab
         review_url = "http://127.0.0.1:5000/api/get_reviews"
+        # online-lab
+        review_url = "https://igabi-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
         reviews = get_dealer_reviews_from_cf(review_url, dealer_id)
         for review in reviews:
             print("sentiment", review.sentiment)
@@ -111,7 +120,10 @@ def get_dealer_details(request, dealer_id):
 
 def add_review(request, dealer_id):
     context = {}
-    url = "http://127.0.0.1:3000/dealerships/get"
+    # local lab
+    # url = "http://127.0.0.1:3000/dealerships/get"
+    # online lab
+    url = "https://igabi-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
     dealer = get_dealer_by_id_from_cf(url, dealer_id)
     context["dealer"] = dealer
 
@@ -143,7 +155,10 @@ def add_review(request, dealer_id):
             payload["car_year"] = int(car.year.strftime("%Y"))
             new_payload = {}
             new_payload["review"] = payload
-            review_post_url = "http://127.0.0.1:5000/api/post_review"
+            # local lab
+            # review_post_url = "http://127.0.0.1:5000/api/post_review"
+            # online lab
+            review_post_url = "https://igabi-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
             review = {
                 "id": dealer_id,
                 "time": datetime.utcnow().isoformat(),
